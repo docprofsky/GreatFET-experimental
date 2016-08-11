@@ -40,6 +40,7 @@
 #include "usb_api_spi.h"
 #include "usb_api_i2c.h"
 #include "usb_api_gpio.h"
+#include "usb_api_memory.h"
 #include "usb_bulk_buffer.h"
 
 usb_request_status_t usb_vendor_request_enable_usb1(
@@ -88,6 +89,8 @@ static const usb_request_handler_fn usb0_vendor_request_handler[] = {
 	usb_vendor_request_i2c_stop,
 	usb_vendor_request_i2c_xfer,
 	usb_vendor_request_i2c_response,
+	usb_vendor_request_write_memory,
+	usb_vendor_request_read_memory,
 };
 
 static const uint32_t usb0_vendor_request_handler_count =
