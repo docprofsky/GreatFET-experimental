@@ -26,6 +26,8 @@
 #include <greatfet_core.h>
 
 /* Write to memory */
+// TODO: Does not work
+// board crashes when run and requires hard reset?
 usb_request_status_t usb_vendor_request_write_memory(
 	usb_endpoint_t* const endpoint, const usb_transfer_stage_t stage)
 {
@@ -43,6 +45,7 @@ usb_request_status_t usb_vendor_request_write_memory(
 }
 
 /* Read from memory */
+// TODO: Test better, believed to work
 usb_request_status_t usb_vendor_request_read_memory(
 	usb_endpoint_t* const endpoint, const usb_transfer_stage_t stage)
 {
