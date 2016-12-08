@@ -1,6 +1,7 @@
 #
 # Copyright (c) 2016 Kyle J. Temkin <kyle@ktemkin.com>
 # Copyright 2016 Jared Boone <jared@sharebrained.com>
+# Copyright 2016 Schuyler St. Leger <schuyler.st.leger@gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -94,6 +95,10 @@ requests = [
     'GREATDANCER_START_NONBLOCKING_READ',
     'GREATDANCER_FINISH_NONBLOCKING_READ',
     'GREATDANCER_GET_NONBLOCKING_LENGTH'
+
+    'PWM_START',
+    'PWM_STOP',
+    'PWM_SET'
 ]
 
 # Get a reference (as an object) to this module (self)

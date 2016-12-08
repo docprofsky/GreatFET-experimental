@@ -44,6 +44,7 @@
 #include "usb_api_logic_analyzer.h"
 #include "usb_api_sdir.h"
 #include "usb_api_greatdancer.h"
+#include "usb_api_pwm.h"
 #include "usb_bulk_buffer.h"
 
 usb_request_status_t usb_vendor_request_led_toggle(
@@ -111,6 +112,9 @@ static const usb_request_handler_fn usb0_vendor_request_handler[] = {
   usb_vendor_request_greatdancer_start_nonblocking_read,
   usb_vendor_request_greatdancer_finish_nonblocking_read,
   usb_vendor_request_greatdancer_get_nonblocking_data_length,
+	usb_vendor_request_pwm_start,
+	usb_vendor_request_pwm_stop,
+	usb_vendor_request_pwm_set,
 };
 
 static const uint32_t usb0_vendor_request_handler_count =
