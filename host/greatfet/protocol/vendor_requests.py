@@ -78,7 +78,8 @@ requests = [
 
     'SDIR_START',
     'SDIR_STOP',
-    'SDIR_TX'
+    'SDIR_TX',
+    'SDIR_CONFIG'
 ]
 
 # Get a reference (as an object) to this module (self)

@@ -100,6 +100,7 @@ static const usb_request_handler_fn usb0_vendor_request_handler[] = {
 	usb_vendor_request_sdir_start,
 	usb_vendor_request_sdir_stop,
 	usb_vendor_request_sdir_tx,
+	usb_vendor_sdir_tx_config,
 };
 
 static const uint32_t usb0_vendor_request_handler_count =

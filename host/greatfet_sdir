@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 #
 # Copyright 2016 Dominic Spill <dominicgs@gmail.com)
 # Copyright 2016 Jared Boone <jared@sharebrained.com>
@@ -62,9 +62,22 @@ if __name__ == '__main__':
             print("No GreatFET board found!", file=sys.stderr)
         sys.exit(errno.ENODEV)
 
-    data = [(0x00, 0xFF)[i%2] for i in range(256)]
+    # data = [(0x00, 0xFF)[i%2] for i in range(256)]
+    data = [
+        1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0, 1,0,0,0,1,0,0,0, 1,0,0,0,1,0,1,0,
+        1,0,1,0,1,0,1,0, 0,0,1,0,0,0,1,0, 0,0,1,0,1,0,1,0, 1,0,1,0,1,0,1,0,
+        0,0,1,0,1,0,1,0, 1,0,1,0,1,0,1,0, 0,0,1,0,1,0,0,0, 1,0,0,0,1,0,0,0,
+        1,0,0,0,1,0,0,0, 1,0,0,0,1,0,0,0
+        ]
     print(data)
-    samplerate = 28
+
+    symbol_ticks = 22*2
+    index = symbol_ticks & 0xFFFF
+    value = (symbol_ticks >> 16) & 0xFFFF
+    device.vendor_request_out(vendor_requests.SDIR_CONFIG, value=value, index=index)
+
+
+    samplerate = 2*38000
     index = samplerate & 0xFFFF
     value = (samplerate >> 16) & 0xFFFF
     device.vendor_request_out(vendor_requests.SDIR_TX, value=value, index=index, data=data)

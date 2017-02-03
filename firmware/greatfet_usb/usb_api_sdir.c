@@ -56,18 +56,29 @@ static uint16_t tx_buf_len;
 static uint16_t tx_buf_idx = 0;
 
 uint32_t samplerate = 0;
+uint32_t ticks_per_symbol = 1;
+static uint32_t tick_count = 0;
 
 void sdir_tx_isr() {
 	TIMER1_IR = 1;
 	led_toggle(LED3);
-	gpio_write(&ir_tx_pin, (ir_tx_buf[tx_buf_idx]!=0x00));
-	// gpio_write(&ir_tx_pin, 1);
-	if(++tx_buf_idx != tx_buf_len) {
-		timer_reset(TIMER1);
+
+	if (ir_tx_buf[tx_buf_idx]!=0x00) {
+		gpio_toggle(&ir_tx_pin);
 	} else {
-		gpio_write(&ir_tx_pin, 0);
-		timer_disable_counter(TIMER1);
-		led_toggle(LED4);		
+		gpio_write(&ir_tx_pin, false);
+	}
+
+	timer_reset(TIMER1);
+
+	if(++tick_count == ticks_per_symbol) {
+		tick_count = 0;
+		if(++tx_buf_idx == tx_buf_len) {
+			gpio_write(&ir_tx_pin, 0);
+			timer_disable_counter(TIMER1);
+			tx_buf_idx = 0;
+			led_toggle(LED4);
+		}
 	}
 }
 
@@ -93,6 +104,7 @@ led_off(LED4);
 	timer_set_mode(TIMER1, TIMER_CTCR_MODE_TIMER);
 	timer_reset(TIMER1);
 	tx_buf_idx = 0;
+	tick_count = 0;
 	timer_enable_counter(TIMER1);
 }
 
@@ -172,6 +184,17 @@ usb_request_status_t usb_vendor_request_sdir_stop(
 {
 	if (stage == USB_TRANSFER_STAGE_SETUP) {
 		sdir_enabled = false;
+		usb_transfer_schedule_ack(endpoint->in);
+	}
+	return USB_REQUEST_STATUS_OK;
+}
+
+usb_request_status_t usb_vendor_sdir_tx_config(
+	usb_endpoint_t* const endpoint, const usb_transfer_stage_t stage)
+{
+	if (stage == USB_TRANSFER_STAGE_SETUP) {
+		ticks_per_symbol = ((uint32_t)endpoint->setup.value) << 16 |
+							endpoint->setup.index;
 		usb_transfer_schedule_ack(endpoint->in);
 	}
 	return USB_REQUEST_STATUS_OK;

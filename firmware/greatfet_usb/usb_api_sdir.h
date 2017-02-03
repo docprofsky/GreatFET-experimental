@@ -33,6 +33,8 @@ usb_request_status_t usb_vendor_request_sdir_stop(
 	usb_endpoint_t* const endpoint, const usb_transfer_stage_t stage);
 usb_request_status_t usb_vendor_request_sdir_tx(
 	usb_endpoint_t* const endpoint, const usb_transfer_stage_t stage);
+usb_request_status_t usb_vendor_sdir_tx_config(
+	usb_endpoint_t* const endpoint, const usb_transfer_stage_t stage);
 
 void sdir_mode(void);
 
