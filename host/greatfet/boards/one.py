@@ -37,7 +37,7 @@ class GreatFETOne(GreatFETBoard):
     """ Class representing GreatFET One base-boards. """
 
     # Currently, all GreatFET One boards have an ID of zero.
-    HANDLED_BOARD_IDS = [0]
+    HANDLED_BOARD_IDS = [0, 2]
     BOARD_NAME = "GreatFET One"
 
 
@@ -46,7 +46,7 @@ class GreatFETOne(GreatFETBoard):
 
         # Set up the core connection.
         super(GreatFETOne, self).__init__(**device_identifiers)
-
+        return
         # Initialize the fixed peripherals that come on the board.
         # TODO: Use a self.add_peripheral mechanism, so peripherals can
         # be dynamically listed?

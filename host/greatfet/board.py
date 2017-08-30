@@ -38,7 +38,7 @@ from .errors import DeviceNotFoundError
 
 # Default device identifiers.
 GREATFET_VENDOR_ID = 0x1d50
-GREATFET_PRODUCT_ID = 0x60e6
+GREATFET_PRODUCT_ID = 0x6089
 
 # Quirk constant that helps us identify libusb's pipe errors, which bubble
 # up as generic USBErrors with errno 32 on affected platforms.

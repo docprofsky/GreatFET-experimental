@@ -98,7 +98,11 @@ requests = [
 
     'PWM_START',
     'PWM_STOP',
-    'PWM_SET'
+    'PWM_SET',
+
+    'COUNTER_START',
+    'COUNTER_STOP',
+    'COUNTER_SET'
 ]
 
 # Get a reference (as an object) to this module (self)
@@ -107,3 +111,9 @@ this_module = globals()
 for i in range(len(requests)):
     this_module[requests[i]] = i
 
+COUNTER_START = 32
+COUNTER_STOP  = 33
+COUNTER_SET   = 34
+
+READ_BOARD_ID = 14
+READ_VERSION_STRING = 15
